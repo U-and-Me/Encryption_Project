@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import javax.management.Descriptor;
 
-
 public class Multiply {
 	
 	public static char alphabetBoard[][] = new char[5][5]; // 5x5 표
@@ -23,8 +22,7 @@ public class Multiply {
 		String key = sc.nextLine();					// 암호키 입력
 		System.out.print("암호화할 문자열을 입력하세요 : ");
 		String str =  sc.nextLine();				// 평문 입력
-		String blankCheck="";	// 공백 체크
-	//	int blankCheckCount=0;	
+		String blankCheck="";	// 공백 체크	
 
 		setBoard(key);							//암호화에 쓰일 암호판 세팅
 		
@@ -251,7 +249,6 @@ public class Multiply {
 			encStr += encPlayFair.get(i)[0]+""+encPlayFair.get(i)[1]+" ";
 		}
 		
-		
 		return encStr;
 	}
 
@@ -296,8 +293,7 @@ public class Multiply {
 				System.out.print(alphabetBoard[i][j]+"-");
 			}
 			System.out.println();
-		}		
-						
+		}				
 		
 	}
 
