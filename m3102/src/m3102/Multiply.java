@@ -12,7 +12,7 @@ public class Multiply {
 	public static boolean oddFlag = false; //글자수 출력
 	public static String zCheck =""; // z가 있는지 체크
 
-	public static void main(String[] args) {
+	public static void Encryption() {
 		
 		String decryption; // 복호문
 		String encryption; // 암호문
