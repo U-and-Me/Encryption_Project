@@ -2,6 +2,8 @@ package m3102;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,8 +12,10 @@ import javax.swing.JTextPane;
 
 public class Encryption_Main {
 	
-	String decryption; // 복호문
-	String encryption; // 암호문
+	static String decryption; // 복호문
+	static String encryption; // 암호문
+	static String key; // 암호키
+	static String str; // 평문
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -133,13 +137,59 @@ public class Encryption_Main {
 		btn_substitution.setFont(s_dream_20);
 		
 		frame.add(btn_substitution);
+		
+		// 초기화 버튼
+		JButton btn_reset = new JButton("초기화");
+		btn_reset.setBounds(950, 590, 120, 50);
+		btn_reset.setBorder(new RoundedBorder(30));
+		btn_reset.setBackground(Color.WHITE);
+		btn_reset.setFocusable(false);
+		btn_reset.setFont(s_dream_15);
+		
+		frame.add(btn_reset);
 
 		frame.setVisible(true);
-
+		
+		// 초기화 버튼 클릭시
+		btn_reset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				input_key_ecryption.setText("");
+				input_text.setText("");
+				output_ecryption.setText("");
+				output_decryption.setText("");
+				
+				input_key_ecryption.setFocusable(true);
+			}
+		});
+		
+		// 암호화 버튼 클릭시
+		btn_ecryption.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				key = input_key_ecryption.getText();
+				str = input_text.getText();
+				encryption = Encryption(key, str); // 암호화한 문장 넣기
+				output_ecryption.setText(encryption); // 암호문 보여주기
+			}
+		});
 	}
 	
-	public static void Encryption() {
+	public static String Encryption(String key, String str) {
+		Encryption e = new Encryption(key, str);
 		
+		String _encryption = e.start();
+		
+		return _encryption;
+	}
+	
+	public static String Decryption() {
+		
+		String _decryption = null;
+		
+		return _decryption;
 	}
 
 }

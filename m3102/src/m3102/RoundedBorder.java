@@ -31,5 +31,4 @@ public class RoundedBorder implements Border {
 		// TODO Auto-generated method stub
 		arg1.drawRoundRect(x, y, width-1, height-1, radius, radius);
 	}
-
 }
