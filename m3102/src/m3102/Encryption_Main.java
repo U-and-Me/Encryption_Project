@@ -5,17 +5,22 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.accessibility.AccessibleIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 public class Encryption_Main {
-	
+
 	static String decryption; // 복호문
 	static String encryption; // 암호문
 	static String key; // 암호키
 	static String str; // 평문
+	
+	public static char alphabetBoard[][] = new char[5][5]; // 5x5 표
+	public static String zCheck =""; // z가 있는지 체크
+	public static String blankCheck="";	// 공백 체크	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -31,10 +36,8 @@ public class Encryption_Main {
 		// frame 설정
 		frame.getContentPane().setBackground(Color.WHITE);
 
-		// font 설정
-		Font s_dream_35 = new Font("에스코어 드림", Font.BOLD, 35);
-		Font s_dream_20 = new Font("에스코어 드림", Font.BOLD, 20);
-		Font s_dream_15 = new Font("에스코어 드림", Font.BOLD, 15);
+		// Font 설정
+		Font_setting font = new Font_setting();
 
 		// 암호키
 		JTextField key_ecryption = new JTextField("암호키 ");
@@ -42,14 +45,14 @@ public class Encryption_Main {
 		key_ecryption.setEditable(false); // 글씨 변경 안됨
 		key_ecryption.setBorder(null);
 		key_ecryption.setBackground(Color.WHITE);
-		key_ecryption.setFont(s_dream_35);
+		key_ecryption.setFont(font.s_dream_35);
 
 		frame.add(key_ecryption);
 
 		// 암호키 입력
 		JTextField input_key_ecryption = new JTextField();
 		input_key_ecryption.setBounds(240, 77, 500, 50);
-		input_key_ecryption.setFont(s_dream_35);
+		input_key_ecryption.setFont(font.s_dream_35);
 
 		frame.add(input_key_ecryption);
 
@@ -59,14 +62,14 @@ public class Encryption_Main {
 		text.setEditable(false); // 글씨 변경 안됨
 		text.setBorder(null);
 		text.setBackground(Color.WHITE);
-		text.setFont(s_dream_35);
+		text.setFont(font.s_dream_35);
 
 		frame.add(text);
 
 		// 평문 입력
 		JTextField input_text = new JTextField();
 		input_text.setBounds(240, 157, 500, 50);
-		input_text.setFont(s_dream_35);
+		input_text.setFont(font.s_dream_35);
 
 		frame.add(input_text);
 
@@ -76,7 +79,7 @@ public class Encryption_Main {
 		title_ecryption.setEditable(false); // 글씨 변경 안됨
 		title_ecryption.setBorder(null);
 		title_ecryption.setBackground(Color.WHITE);
-		title_ecryption.setFont(s_dream_35);
+		title_ecryption.setFont(font.s_dream_35);
 
 		frame.add(title_ecryption);
 
@@ -85,7 +88,7 @@ public class Encryption_Main {
 		output_ecryption.setBounds(240, 307, 500, 50);
 		output_ecryption.setEditable(false); // 글씨 변경 안됨
 		output_ecryption.setBackground(Color.WHITE);
-		output_ecryption.setFont(s_dream_35);
+		output_ecryption.setFont(font.s_dream_35);
 
 		frame.add(output_ecryption);
 
@@ -95,7 +98,7 @@ public class Encryption_Main {
 		title_decryption.setEditable(false); // 글씨 변경 안됨
 		title_decryption.setBorder(null);
 		title_decryption.setBackground(Color.WHITE);
-		title_decryption.setFont(s_dream_35);
+		title_decryption.setFont(font.s_dream_35);
 
 		frame.add(title_decryption);
 
@@ -104,52 +107,52 @@ public class Encryption_Main {
 		output_decryption.setBounds(240, 392, 500, 50);
 		output_decryption.setEditable(false); // 글씨 변경 안됨
 		output_decryption.setBackground(Color.WHITE);
-		output_decryption.setFont(s_dream_35);
+		output_decryption.setFont(font.s_dream_35);
 
 		frame.add(output_decryption);
-		
+
 		// 암호화 버튼
 		JButton btn_ecryption = new JButton("암호");
 		btn_ecryption.setBounds(770, 307, 100, 50);
 		btn_ecryption.setBorder(new RoundedBorder(30));
 		btn_ecryption.setBackground(Color.WHITE);
 		btn_ecryption.setFocusable(false);
-		btn_ecryption.setFont(s_dream_15);
-		
+		btn_ecryption.setFont(font.s_dream_15);
+
 		frame.add(btn_ecryption);
-		
+
 		// 복호화 버튼
 		JButton btn_decryption = new JButton("복호");
 		btn_decryption.setBounds(770, 392, 100, 50);
 		btn_decryption.setBorder(new RoundedBorder(30));
 		btn_decryption.setBackground(Color.WHITE);
 		btn_decryption.setFocusable(false);
-		btn_decryption.setFont(s_dream_15);
-		
+		btn_decryption.setFont(font.s_dream_15);
+
 		frame.add(btn_decryption);
-		
+
 		// 치환과정 버튼
 		JButton btn_substitution = new JButton("치환 과정 보기");
 		btn_substitution.setBounds(30, 590, 200, 50);
 		btn_substitution.setBorder(new RoundedBorder(30));
 		btn_substitution.setBackground(Color.WHITE);
 		btn_substitution.setFocusable(false);
-		btn_substitution.setFont(s_dream_20);
-		
+		btn_substitution.setFont(font.s_dream_20);
+
 		frame.add(btn_substitution);
-		
+
 		// 초기화 버튼
 		JButton btn_reset = new JButton("초기화");
 		btn_reset.setBounds(950, 590, 120, 50);
 		btn_reset.setBorder(new RoundedBorder(30));
 		btn_reset.setBackground(Color.WHITE);
 		btn_reset.setFocusable(false);
-		btn_reset.setFont(s_dream_15);
-		
+		btn_reset.setFont(font.s_dream_15);
+
 		frame.add(btn_reset);
 
 		frame.setVisible(true);
-		
+
 		// 초기화 버튼 클릭시
 		btn_reset.addActionListener(new ActionListener() {
 			@Override
@@ -159,37 +162,128 @@ public class Encryption_Main {
 				input_text.setText("");
 				output_ecryption.setText("");
 				output_decryption.setText("");
-				
+
 				input_key_ecryption.setFocusable(true);
 			}
 		});
-		
+
 		// 암호화 버튼 클릭시
 		btn_ecryption.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 				key = input_key_ecryption.getText();
 				str = input_text.getText();
+
+				// 암호화에 쓰일 암호판 세팅
+				setBoard(key);
+				
 				encryption = Encryption(key, str); // 암호화한 문장 넣기
 				output_ecryption.setText(encryption); // 암호문 보여주기
 			}
 		});
-	}
-	
-	public static String Encryption(String key, String str) {
-		Encryption e = new Encryption(key, str);
+
+		// 복호화 버튼 클릭시
+		btn_decryption.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				decryption = Decryption();
+				
+				// 복호문에 공백을 넣어주기
+				for( int i = 0 ; i < decryption.length() ; i++)
+				{
+					if(blankCheck.charAt(i)=='1')
+					{
+						decryption = decryption.substring(0,i)+" "+decryption.substring(i,decryption.length());
+					}
+				}
+				
+				output_decryption.setText(decryption);
+			}
+		});
 		
+		// 치환 과정 보기 클릭시
+		btn_substitution.addActionListener(new Substitution(frame));
+	}
+
+	public static String Encryption(String key, String str) {
+		Encryption e = new Encryption(key, str, alphabetBoard);
+
+		// 암호화된 암호문 받기
 		String _encryption = e.start();
 		
+		// z가 있는지 체크하는 변수 받아오기
+		zCheck = e.getzCheck();
+		
+		// 공백이 있는지 체크하는 변수 받아오기
+		blankCheck = e.getblankCheck();
+
 		return _encryption;
 	}
-	
+
 	public static String Decryption() {
-		
-		String _decryption = null;
-		
+
+		// 암호문 공백 제거
+		for( int i = 0 ; i < encryption.length() ; i++ ) 
+		{
+			if(encryption.charAt(i)==' ') //공백제거
+				encryption = encryption.substring(0,i)+encryption.substring(i+1,encryption.length());
+		}
+
+		Decryption d = new Decryption(key, encryption, zCheck, alphabetBoard);
+
+		// 암호화된 암호문 받기
+		String _decryption = d.start();
+
 		return _decryption;
+	}
+
+	// 5x5 암호판 만들기
+	private static void setBoard(String key) {
+		String keyForSet = "";					// 암호키에서 중복된 문자열을 제거한 문자열
+		boolean duplicationFlag = false;		// 문자 중복 체크
+		int keyLengthCount = 0;					// alphabetBoard에 keyForSet을 넣기 위한 count변수
+
+		key += "abcdefghijklmnopqrstuvwxyz"; 	// 키에 모든 알파벳을 추가
+
+		// 암호키 중복 처리
+		for( int i = 0 ; i < key.length() ; i++ ) 
+		{
+			for( int j = 0 ; j < keyForSet.length() ; j++ )
+			{
+				if(key.charAt(i)==keyForSet.charAt(j))	// 중복일 경우
+				{
+					duplicationFlag = true;
+					break;
+				}
+			}
+			// 중복이 아닐 경우
+			if(!(duplicationFlag)) keyForSet += key.charAt(i);	// keyForSet 변수에 문자 추가하기
+			duplicationFlag = false;
+		}
+
+		// 5x5 표에 알파벳 추가
+		for( int i = 0 ; i < alphabetBoard.length ; i++ )
+		{
+			for( int j = 0; j <alphabetBoard[i].length ; j++ )
+			{
+				alphabetBoard[i][j] = keyForSet.charAt(keyLengthCount++);
+			}
+		}	
+
+		// 5x5 표 출력
+		for( int i = 0 ; i < alphabetBoard.length ; i++ )
+		{
+			for( int j = 0; j <alphabetBoard[i].length ; j++ )
+			{
+				System.out.print(alphabetBoard[i][j]+"-");
+			}
+			System.out.println();
+		}				
+
 	}
 
 }

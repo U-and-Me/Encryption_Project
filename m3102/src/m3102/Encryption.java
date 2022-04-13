@@ -14,17 +14,13 @@ public class Encryption {
 	public static boolean oddFlag = false; //글자수 출력
 
 	// 암호키, 평문 입력받아서 암호화 진행하기
-	public Encryption(String key, String str) {
-		// TODO Auto-generated constructor stub
+	public Encryption(String key, String str, char[][] alphabetBoard) {
 		this.key = key;
 		this.str = str;
+		Encryption.alphabetBoard = alphabetBoard.clone();
 	}
 
 	public String start() {
-
-		// 암호화에 쓰일 암호판 세팅
-		setBoard(key);
-
 		// 공백 제거 및 알파벳 바꾸기
 		remove();
 		
@@ -32,6 +28,14 @@ public class Encryption {
 		encryption = strEncryption(key, str);
 
 		return encryption;
+	}
+	
+	public String getzCheck() {
+		return zCheck;
+	}
+	
+	public String getblankCheck() {
+		return blankCheck;
 	}
 
 	// 평문 공백 제거, 'z'를 'q'를 바꾸기
@@ -59,50 +63,7 @@ public class Encryption {
 		}
 	}
 
-	// 5x5 암호판 만들기
-	private static void setBoard(String key) {
-		String keyForSet = "";					// 암호키에서 중복된 문자열을 제거한 문자열
-		boolean duplicationFlag = false;		// 문자 중복 체크
-		int keyLengthCount = 0;					// alphabetBoard에 keyForSet을 넣기 위한 count변수
-
-		key += "abcdefghijklmnopqrstuvwxyz"; 	// 키에 모든 알파벳을 추가
-
-		// 암호키 중복 처리
-		for( int i = 0 ; i < key.length() ; i++ ) 
-		{
-			for( int j = 0 ; j < keyForSet.length() ; j++ )
-			{
-				if(key.charAt(i)==keyForSet.charAt(j))	// 중복일 경우
-				{
-					duplicationFlag = true;
-					break;
-				}
-			}
-			// 중복이 아닐 경우
-			if(!(duplicationFlag)) keyForSet += key.charAt(i);	// keyForSet 변수에 문자 추가하기
-			duplicationFlag = false;
-		}
-
-		// 5x5 표에 알파벳 추가
-		for( int i = 0 ; i < alphabetBoard.length ; i++ )
-		{
-			for( int j = 0; j <alphabetBoard[i].length ; j++ )
-			{
-				alphabetBoard[i][j] = keyForSet.charAt(keyLengthCount++);
-			}
-		}	
-
-		// 5x5 표 출력
-		for( int i = 0 ; i < alphabetBoard.length ; i++ )
-		{
-			for( int j = 0; j <alphabetBoard[i].length ; j++ )
-			{
-				System.out.print(alphabetBoard[i][j]+"-");
-			}
-			System.out.println();
-		}				
-
-	}
+	
 
 	// 암호문 생성
 	private static String strEncryption(String key, String str){
