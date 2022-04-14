@@ -206,7 +206,20 @@ public class Encryption_Main {
 		});
 		
 		// 치환 과정 보기 클릭시
-		btn_substitution.addActionListener(new Substitution(frame));
+		btn_substitution.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				key = input_key_ecryption.getText();
+				str = input_text.getText();
+				
+				Substitution sub = new Substitution(frame, alphabetBoard, key, str, encryption);
+				sub.Screen();
+				
+			}
+		});
 	}
 
 	public static String Encryption(String key, String str) {
