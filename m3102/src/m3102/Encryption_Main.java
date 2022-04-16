@@ -21,6 +21,7 @@ public class Encryption_Main {
 	public static char alphabetBoard[][] = new char[5][5]; // 5x5 표
 	public static String zCheck =""; // z가 있는지 체크
 	public static String blankCheck="";	// 공백 체크	
+	public static boolean oddFlag; //글자수 출력
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -162,6 +163,13 @@ public class Encryption_Main {
 				input_text.setText("");
 				output_ecryption.setText("");
 				output_decryption.setText("");
+				
+				key = "";
+				str = "";	
+				alphabetBoard = new char[5][5];  // 5x5 표
+				zCheck =""; // z가 있는지 체크
+				blankCheck="";	// 공백 체크	
+				oddFlag = false; //글자수 출력
 
 				input_key_ecryption.setFocusable(true);
 			}
@@ -173,8 +181,8 @@ public class Encryption_Main {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				key = input_key_ecryption.getText();
-				str = input_text.getText();
+				key = input_key_ecryption.getText().toUpperCase();
+				str = input_text.getText().toUpperCase();
 
 				// 암호화에 쓰일 암호판 세팅
 				setBoard(key);
@@ -190,8 +198,9 @@ public class Encryption_Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				decryption = Decryption();
 				
+				decryption = Decryption();
+				System.out.println(decryption + "   " +blankCheck);
 				// 복호문에 공백을 넣어주기
 				for( int i = 0 ; i < decryption.length() ; i++)
 				{
@@ -223,7 +232,7 @@ public class Encryption_Main {
 	}
 
 	public static String Encryption(String key, String str) {
-		Encryption e = new Encryption(key, str, alphabetBoard);
+		Encryption e = new Encryption(key, str, alphabetBoard, blankCheck);
 
 		// 암호화된 암호문 받기
 		String _encryption = e.start();
@@ -233,6 +242,13 @@ public class Encryption_Main {
 		
 		// 공백이 있는지 체크하는 변수 받아오기
 		blankCheck = e.getblankCheck();
+		
+		// 변경된 str 받아오기
+		str = e.getstr();
+		
+		// 글자 수 출력하는 변수 받아오기
+		oddFlag = e.getoddFlag();
+		
 
 		return _encryption;
 	}
@@ -246,7 +262,7 @@ public class Encryption_Main {
 				encryption = encryption.substring(0,i)+encryption.substring(i+1,encryption.length());
 		}
 
-		Decryption d = new Decryption(key, encryption, zCheck, alphabetBoard);
+		Decryption d = new Decryption(key, encryption, zCheck, alphabetBoard, oddFlag);
 
 		// 암호화된 암호문 받기
 		String _decryption = d.start();
@@ -260,7 +276,7 @@ public class Encryption_Main {
 		boolean duplicationFlag = false;		// 문자 중복 체크
 		int keyLengthCount = 0;					// alphabetBoard에 keyForSet을 넣기 위한 count변수
 
-		key += "abcdefghijklmnopqrstuvwxyz"; 	// 키에 모든 알파벳을 추가
+		key += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 	// 키에 모든 알파벳을 추가
 
 		// 암호키 중복 처리
 		for( int i = 0 ; i < key.length() ; i++ ) 

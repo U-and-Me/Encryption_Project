@@ -12,15 +12,16 @@ public class Encryption {
 	public static String zCheck =""; // z가 있는지 체크
 	public static String blankCheck="";	// 공백 체크	
 	public static boolean oddFlag = false; //글자수 출력
-
+		
 	// 암호키, 평문 입력받아서 암호화 진행하기
-	public Encryption(String key, String str, char[][] alphabetBoard) {
+	public Encryption(String key, String str, char[][] alphabetBoard, String blankCheck) {
 		this.key = key;
 		this.str = str;
+		this.blankCheck = blankCheck;
 		Encryption.alphabetBoard = alphabetBoard.clone();
 	}
 
-	public String start() {
+	public String start() {		
 		// 공백 제거 및 알파벳 바꾸기
 		remove();
 		
@@ -37,6 +38,16 @@ public class Encryption {
 	public String getblankCheck() {
 		return blankCheck;
 	}
+	
+	public String getstr() {
+		return str;
+	}
+	
+	public boolean getoddFlag() {
+		return oddFlag;
+	}
+	
+	
 
 	// 평문 공백 제거, 'z'를 'q'를 바꾸기
 	private static void remove() {
@@ -51,9 +62,9 @@ public class Encryption {
 			{
 				blankCheck+=0;
 			}
-			if(str.charAt(i)=='z') //z를 q로 바꿔줘서 처리함.
+			if(str.charAt(i)=='Z') //Z를 Q로 바꿔줘서 처리함.
 			{
-				str = str.substring(0,i)+'q'+str.substring(i+1,str.length());
+				str = str.substring(0,i)+'Q'+str.substring(i+1,str.length());
 				zCheck+=1;
 			}
 			else 
@@ -81,14 +92,14 @@ public class Encryption {
 			try{
 				if( str.charAt(i) == str.charAt(i+1)) // 연속으로 같은 알파벳이 나오면 'x' 추가
 				{
-					tmpArr[1] = 'x';
+					tmpArr[1] = 'X';
 					i--;
 				}else{
 					tmpArr[1] = str.charAt(i+1);
 				}
 			}catch(StringIndexOutOfBoundsException e) 
 			{
-				tmpArr[1] = 'x'; // 알파벳 개수가 홀수일 경우 마지막에 'x' 추가
+				tmpArr[1] = 'X'; // 알파벳 개수가 홀수일 경우 마지막에 'x' 추가
 				oddFlag = true;
 			}
 			playFair.add(tmpArr);	// ArrayList에 추가

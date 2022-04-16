@@ -9,14 +9,15 @@ public class Decryption {
 	private static String decryption;
 
 	public static char alphabetBoard[][] = new char[5][5]; // 5x5 표
-	public static boolean oddFlag = false; //글자수 출력
+	public static boolean oddFlag ; //글자수 출력
 	public static String zCheck =""; // z가 있는지 체크
 
-	public Decryption(String key, String encryption, String zCheck, char[][] alphabetBoard) {
+	public Decryption(String key, String encryption, String zCheck, char[][] alphabetBoard, boolean oddFlag) {
 		Decryption.key = key;
 		Decryption.str = encryption;
 		Decryption.zCheck = zCheck;
 		Decryption.alphabetBoard = alphabetBoard.clone();
+		Decryption.oddFlag = oddFlag;
 	}
 	
 	public String start() {
@@ -90,7 +91,7 @@ public class Decryption {
 		// 중복된 문자열을 기존 문자열로 되돌려놓기
 		for(int i = 0 ; i < decPlayFair.size() ; i++) 
 		{
-			if(i!=decPlayFair.size()-1 && decPlayFair.get(i)[1]=='x' 
+			if(i!=decPlayFair.size()-1 && decPlayFair.get(i)[1]=='X' 
 					&& decPlayFair.get(i)[0]==decPlayFair.get(i+1)[0])
 			{	
 				decStr += decPlayFair.get(i)[0];
@@ -101,11 +102,11 @@ public class Decryption {
 			}
 		}
 
-		// 'q' 였던 문자열을 'z'로 돌려놓기
+		// 'Q' 였던 문자열을 'Z'로 돌려놓기
 		for(int i = 0 ; i < zCheck.length() ; i++ )
 		{
 			if( zCheck.charAt(i) == '1' ) 
-				decStr = decStr.substring(0,i)+'z'+decStr.substring(i+1,decStr.length());
+				decStr = decStr.substring(0,i)+'Z'+decStr.substring(i+1,decStr.length());
 
 		}
 
