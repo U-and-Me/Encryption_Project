@@ -56,7 +56,7 @@ public class Substitution implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
-		if(b_frame == null) b_frame.setVisible(false); // 이전 창 없애기
+		if(b_frame != null) b_frame.setVisible(false); // 이전 창 없애기
 		frame.setVisible(true); // 자기 자신 띄우기
 
 	}
@@ -97,8 +97,8 @@ public class Substitution implements ActionListener{
 		table.setTableHeader(null);
 
 		// 테이블 사이즈 조절
-		int heigth = 80;
-		table.setRowHeight(heigth);
+		int height = 80;
+		table.setRowHeight(height);
 
 		// 테이블 값 수정 불가
 		table.setEnabled(false);
@@ -174,9 +174,11 @@ public class Substitution implements ActionListener{
 		// 두 글자씩 자른 표 보여주기
 		removeBlank();
 		String[][] data_model = new String[2][encryption.length() / 2];
+		String[] _columnNmaes2 = new String[encryption.length() / 2];
 		int str_index = 0;
 		int enc_index = 0;
 		for(int i = 0; i < data_model[0].length; i++) {
+			_columnNmaes2[i] = Character.toString(i);
 			// 평문 2개씩 자르기
 			try{
 				data_model[0][i] = Character.toString(str.charAt(str_index));
@@ -204,7 +206,7 @@ public class Substitution implements ActionListener{
 		}
 
 		// 테이블 모델 만들기
-		DefaultTableModel model_sample = new DefaultTableModel(data_model, _columnNmaes);
+		DefaultTableModel model_sample = new DefaultTableModel(data_model, _columnNmaes2);
 		
 		// 테이블에 생성 및 모델 초기화
 		JTable table2 = new JTable(model_sample);
@@ -214,19 +216,23 @@ public class Substitution implements ActionListener{
 
 		// 테이블 값 수정 불가
 		table2.setEnabled(false);
+		
+		// 테이블 높이 수정
+		int height2 = 80;
+		table2.setRowHeight(height2);
 
 		// 값 글씨 수정
 		DefaultTableCellRenderer dtcr2 = new DefaultTableCellRenderer();
 		dtcr2.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm2 = table2.getColumnModel();
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < data_model[0].length; i++)
 			tcm2.getColumn(i).setCellRenderer(dtcr);
 
 		// 테이블 올려놓기
 		JScrollPane scrollpane2 = new JScrollPane();
 		scrollpane2.add(table2);
 		scrollpane2.setViewportView(table2);
-		scrollpane2.setBounds(500, 185, 200, 163);
+		scrollpane2.setBounds(500, 220, 400, 163);
 
 		frame.add(scrollpane2);
 
