@@ -177,6 +177,7 @@ public class Substitution implements ActionListener{
 		String[] _columnNmaes2 = new String[encryption.length() / 2];
 		int str_index = 0;
 		int enc_index = 0;
+		str = str.toUpperCase();
 		for(int i = 0; i < data_model[0].length; i++) {
 			_columnNmaes2[i] = Character.toString(i);
 			// 평문 2개씩 자르기

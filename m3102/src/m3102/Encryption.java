@@ -14,11 +14,12 @@ public class Encryption {
 	public static boolean oddFlag = false; //글자수 출력
 		
 	// 암호키, 평문 입력받아서 암호화 진행하기
-	public Encryption(String key, String str, char[][] alphabetBoard, String blankCheck) {
+	public Encryption(String key, String str, char[][] alphabetBoard, String blankCheck, boolean oddFlag) {
 		this.key = key;
 		this.str = str;
 		this.blankCheck = blankCheck;
 		Encryption.alphabetBoard = alphabetBoard.clone();
+		this.oddFlag = oddFlag;
 	}
 
 	public String start() {		
@@ -46,8 +47,6 @@ public class Encryption {
 	public boolean getoddFlag() {
 		return oddFlag;
 	}
-	
-	
 
 	// 평문 공백 제거, 'z'를 'q'를 바꾸기
 	private static void remove() {

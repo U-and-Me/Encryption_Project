@@ -209,7 +209,6 @@ public class Encryption_Main {
 						decryption = decryption.substring(0,i)+" "+decryption.substring(i,decryption.length());
 					}
 				}
-				
 				output_decryption.setText(decryption);
 			}
 		});
@@ -232,7 +231,7 @@ public class Encryption_Main {
 	}
 
 	public static String Encryption(String key, String str) {
-		Encryption e = new Encryption(key, str, alphabetBoard, blankCheck);
+		Encryption e = new Encryption(key, str, alphabetBoard, blankCheck, oddFlag);
 
 		// 암호화된 암호문 받기
 		String _encryption = e.start();
@@ -261,7 +260,7 @@ public class Encryption_Main {
 			if(encryption.charAt(i)==' ') //공백제거
 				encryption = encryption.substring(0,i)+encryption.substring(i+1,encryption.length());
 		}
-
+		
 		Decryption d = new Decryption(key, encryption, zCheck, alphabetBoard, oddFlag);
 
 		// 암호화된 암호문 받기

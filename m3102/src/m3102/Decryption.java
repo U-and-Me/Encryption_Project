@@ -35,8 +35,6 @@ public class Decryption {
 		int x1 = 0 , x2 = 0 , y1 = 0, y2 = 0; //쌍자 암호 두 글자의 각각의 행,열 값
 		String decStr ="";	// 복호문
 
-		int lengthOddFlag = 1;
-
 		// 암호문을 2개씩 잘라 playFair에 저장
 		for( int i = 0 ; i < str.length() ; i+=2 )
 		{
