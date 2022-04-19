@@ -84,9 +84,9 @@ public class Encryption_Main {
 
 		frame.add(title_ecryption);
 
-		// 암호화 출력
+		// 암호문 출력
 		JTextField output_ecryption = new JTextField();
-		output_ecryption.setBounds(240, 307, 500, 50);
+		output_ecryption.setBounds(240, 307, 600, 50);
 		output_ecryption.setEditable(false); // 글씨 변경 안됨
 		output_ecryption.setBackground(Color.WHITE);
 		output_ecryption.setFont(font.s_dream_35);
@@ -105,7 +105,7 @@ public class Encryption_Main {
 
 		// 복호문 출력
 		JTextField output_decryption = new JTextField();
-		output_decryption.setBounds(240, 392, 500, 50);
+		output_decryption.setBounds(240, 392, 600, 50);
 		output_decryption.setEditable(false); // 글씨 변경 안됨
 		output_decryption.setBackground(Color.WHITE);
 		output_decryption.setFont(font.s_dream_35);
@@ -114,7 +114,7 @@ public class Encryption_Main {
 
 		// 암호화 버튼
 		JButton btn_ecryption = new JButton("암호");
-		btn_ecryption.setBounds(770, 307, 100, 50);
+		btn_ecryption.setBounds(870, 307, 100, 50);
 		btn_ecryption.setBorder(new RoundedBorder(30));
 		btn_ecryption.setBackground(Color.WHITE);
 		btn_ecryption.setFocusable(false);
@@ -124,7 +124,7 @@ public class Encryption_Main {
 
 		// 복호화 버튼
 		JButton btn_decryption = new JButton("복호");
-		btn_decryption.setBounds(770, 392, 100, 50);
+		btn_decryption.setBounds(870, 392, 100, 50);
 		btn_decryption.setBorder(new RoundedBorder(30));
 		btn_decryption.setBackground(Color.WHITE);
 		btn_decryption.setFocusable(false);
@@ -200,7 +200,7 @@ public class Encryption_Main {
 				// TODO Auto-generated method stub
 				
 				decryption = Decryption();
-				System.out.println(decryption + "   " +blankCheck);
+				
 				// 복호문에 공백을 넣어주기
 				for( int i = 0 ; i < decryption.length() ; i++)
 				{

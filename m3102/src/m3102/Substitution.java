@@ -1,19 +1,28 @@
 package m3102;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.beans.EventHandler;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -52,17 +61,9 @@ public class Substitution implements ActionListener{
 
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
-		if(b_frame != null) b_frame.setVisible(false); // 이전 창 없애기
-		frame.setVisible(true); // 자기 자신 띄우기
-
-	}
-
 	// 치환 과정 화면 구현하기
 	public void Screen() {
+		b_frame.setVisible(false);
 		frame.setLayout(null);
 		frame.setVisible(true);
 
@@ -145,7 +146,7 @@ public class Substitution implements ActionListener{
 		txt_ecryption.setEditable(false); // 글씨 변경 안됨
 		txt_ecryption.setBorder(null);
 		txt_ecryption.setBackground(Color.WHITE);
-		txt_ecryption.setFont(font.s_dream_30);
+		txt_ecryption.setFont(font.s_dream_25);
 
 		frame.add(txt_ecryption);
 
@@ -209,14 +210,17 @@ public class Substitution implements ActionListener{
 		// 테이블 모델 만들기
 		DefaultTableModel model_sample = new DefaultTableModel(data_model, _columnNmaes2);
 		
-		// 테이블에 생성 및 모델 초기화
-		JTable table2 = new JTable(model_sample);
+		// 테이블에 생성 및 모델 초기화 / 테이블 값 수정 불가 및 선택 가능
+		JTable table2 = new JTable(model_sample) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		table2.setFillsViewportHeight(true);
 
 		// 테이블 컬럼명 제거
 		table2.setTableHeader(null);		
-
-		// 테이블 값 수정 불가
-		table2.setEnabled(false);
 		
 		// 테이블 높이 수정
 		int height2 = 80;
@@ -228,17 +232,48 @@ public class Substitution implements ActionListener{
 		TableColumnModel tcm2 = table2.getColumnModel();
 		for(int i = 0; i < data_model[0].length; i++)
 			tcm2.getColumn(i).setCellRenderer(dtcr);
+		
+		table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // 단일 선택
 
 		// 테이블 올려놓기
 		JScrollPane scrollpane2 = new JScrollPane();
 		scrollpane2.add(table2);
 		scrollpane2.setViewportView(table2);
-		scrollpane2.setBounds(500, 220, 400, 163);
+		scrollpane2.setBounds(500, 220, 500, 163);
 
 		frame.add(scrollpane2);
 
+		table2.addMouseListener(new java.awt.event.MouseListener() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				JTable jt = (JTable) e.getSource();
+				int select_row = jt.getSelectedRow();
+				int select_column = jt.getSelectedColumn();
+				jt.setFillsViewportHeight(true);
 
+				// 암호문을 선택했을 경우에만 처리
+				if(select_row != 0) {
+					Object value = jt.getValueAt(select_row, select_column);
+					
+					// 선택한 값의 첫번째 글자 가져오기
+					char first = value.toString().charAt(0);
+					// 선택한 값의 두번째 글자 가져오기
+					char second = value.toString().charAt(1);
+					
+					System.out.println(first + "   " + second);
+					
+					
+				}				
+			}
 
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+		});
 	}
 
 	public void removeBlank() {
@@ -251,4 +286,10 @@ public class Substitution implements ActionListener{
 		}
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
