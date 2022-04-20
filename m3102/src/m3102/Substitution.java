@@ -70,7 +70,7 @@ public class Substitution implements ActionListener{
 		JButton title = new JButton("치환 과정 보기");
 		title.setBounds(20, 20, 200, 50);
 		title.setBorder(new RoundedBorder(30));
-		title.setBackground(Color.WHITE);
+		title.setBackground(new Color(252, 255, 253));
 		title.setFocusable(false);
 		title.setFont(font.s_dream_20);
 		title.setEnabled(false);
@@ -92,7 +92,16 @@ public class Substitution implements ActionListener{
 		DefaultTableModel model = new DefaultTableModel(data, _columnNmaes);
 
 		// 테이블에 생성 및 모델 초기화
-		JTable table = new JTable(model);
+		JTable table = new JTable(model) {
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component c =  super.prepareRenderer(renderer, row, column);
+				Color color = Color.WHITE;
+				c.setBackground(color);
+				
+				return c;
+			}
+		};
 
 		// 테이블 컬럼명 제거
 		table.setTableHeader(null);
@@ -116,6 +125,7 @@ public class Substitution implements ActionListener{
 		scrollpane.add(table);
 		scrollpane.setViewportView(table);
 		scrollpane.setBounds(50, 150, 400, 403);
+
 
 		frame.add(scrollpane);
 
@@ -215,6 +225,22 @@ public class Substitution implements ActionListener{
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component c = super.prepareRenderer(renderer, row, column);
+				
+				Color color1 = new Color(238, 255, 246);
+				Color color2 = new Color(219, 244, 255);
+				
+				// 표 색상 변경
+				if(row % 2 == 0) {
+					c.setBackground(color1);
+				}else {
+					c.setBackground(color2);
+				}
+				
+				return c;
+			}
 		};
 		
 		table2.setFillsViewportHeight(true);
@@ -240,7 +266,7 @@ public class Substitution implements ActionListener{
 		scrollpane2.add(table2);
 		scrollpane2.setViewportView(table2);
 		scrollpane2.setBounds(500, 220, 500, 163);
-
+		
 		frame.add(scrollpane2);
 
 		table2.addMouseListener(new java.awt.event.MouseListener() {
@@ -262,7 +288,7 @@ public class Substitution implements ActionListener{
 					System.out.println(first + "   " + second);
 					
 					
-				}				
+				}
 			}
 
 			@Override

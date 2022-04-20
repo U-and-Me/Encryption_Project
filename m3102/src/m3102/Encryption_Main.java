@@ -35,7 +35,7 @@ public class Encryption_Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//JFrame이 정상적으로 종료되게
 
 		// frame 설정
-		frame.getContentPane().setBackground(Color.WHITE);
+		frame.getContentPane().setBackground(new Color(255, 254, 235));
 
 		// Font 설정
 		Font_setting font = new Font_setting();
@@ -45,7 +45,7 @@ public class Encryption_Main {
 		key_ecryption.setBounds(100, 50, 120, 100);
 		key_ecryption.setEditable(false); // 글씨 변경 안됨
 		key_ecryption.setBorder(null);
-		key_ecryption.setBackground(Color.WHITE);
+		key_ecryption.setBackground(new Color(255, 254, 235));
 		key_ecryption.setFont(font.s_dream_35);
 
 		frame.add(key_ecryption);
@@ -62,7 +62,7 @@ public class Encryption_Main {
 		text.setBounds(100, 130, 120, 100);
 		text.setEditable(false); // 글씨 변경 안됨
 		text.setBorder(null);
-		text.setBackground(Color.WHITE);
+		text.setBackground(new Color(255, 254, 235));
 		text.setFont(font.s_dream_35);
 
 		frame.add(text);
@@ -79,7 +79,7 @@ public class Encryption_Main {
 		title_ecryption.setBounds(100, 280, 120, 100);
 		title_ecryption.setEditable(false); // 글씨 변경 안됨
 		title_ecryption.setBorder(null);
-		title_ecryption.setBackground(Color.WHITE);
+		title_ecryption.setBackground(new Color(255, 254, 235));
 		title_ecryption.setFont(font.s_dream_35);
 
 		frame.add(title_ecryption);
@@ -98,7 +98,7 @@ public class Encryption_Main {
 		title_decryption.setBounds(100, 365, 120, 100);
 		title_decryption.setEditable(false); // 글씨 변경 안됨
 		title_decryption.setBorder(null);
-		title_decryption.setBackground(Color.WHITE);
+		title_decryption.setBackground(new Color(255, 254, 235));
 		title_decryption.setFont(font.s_dream_35);
 
 		frame.add(title_decryption);
@@ -136,7 +136,7 @@ public class Encryption_Main {
 		JButton btn_substitution = new JButton("치환 과정 보기");
 		btn_substitution.setBounds(30, 590, 200, 50);
 		btn_substitution.setBorder(new RoundedBorder(30));
-		btn_substitution.setBackground(Color.WHITE);
+		btn_substitution.setBackground(new Color(212, 235, 255));
 		btn_substitution.setFocusable(false);
 		btn_substitution.setFont(font.s_dream_20);
 
