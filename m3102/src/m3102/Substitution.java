@@ -352,10 +352,10 @@ public class Substitution implements ActionListener{
 
 							// 표 색상 변경
 							if(row == find_first[0] && column == find_first[1] || row == find_second[0] && column == find_second[1] || row == find_first[2] && column == find_first[3] || row == find_second[2] && column == find_second[3]) {
-								if(row == find_first[0] && column == find_first[1] || row == find_second[0] && column == find_second[1]) {
-									c.setBackground(color1);
-								}else
+								if(row == find_first[2] && column == find_first[3] || row == find_second[2] && column == find_second[3]) {
 									c.setBackground(color2);
+								}else
+									c.setBackground(color1);
 							}
 							else
 								c.setBackground(Color.WHITE);
