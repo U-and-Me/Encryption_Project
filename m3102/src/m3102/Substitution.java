@@ -34,6 +34,11 @@ public class Substitution implements ActionListener{
 	private static String key; // 암호키
 
 	public static char alphabetBoard[][] = new char[5][5]; // 5x5 표
+	
+	int[] find_first = {0, 0, 0, 0};
+	int[] find_second = {0, 0, 0, 0};
+	int front1 = 1, front2 = 1;
+	int count1 = 0, count2 = 0;
 
 	JFrame frame; // 현재 창
 	JFrame b_frame; // 호출 전 창
@@ -57,7 +62,7 @@ public class Substitution implements ActionListener{
 		Substitution.encryption = encryption;
 
 		// frame 설정
-		this.frame.getContentPane().setBackground(Color.WHITE);
+		this.frame.getContentPane().setBackground(new Color(255, 255, 249));
 
 	}
 
@@ -67,13 +72,14 @@ public class Substitution implements ActionListener{
 		frame.setLayout(null);
 		frame.setVisible(true);
 
-		JButton title = new JButton("치환 과정 보기");
+		JTextField title = new JTextField("치환 과정 보기");
 		title.setBounds(20, 20, 200, 50);
-		title.setBorder(new RoundedBorder(30));
-		title.setBackground(new Color(252, 255, 253));
+		title.setBackground(new Color(247, 238, 255));
+		title.setEditable(false); // 글씨 변경 안됨
+		title.setBorder(null);
+		title.setHorizontalAlignment(JTextField.CENTER);
 		title.setFocusable(false);
 		title.setFont(font.s_dream_20);
-		title.setEnabled(false);
 
 		frame.add(title);
 
@@ -135,7 +141,7 @@ public class Substitution implements ActionListener{
 		txt_key.setBounds(500, 40, 400, 50);
 		txt_key.setEditable(false); // 글씨 변경 안됨
 		txt_key.setBorder(null);
-		txt_key.setBackground(Color.WHITE);
+		txt_key.setBackground(new Color(255, 255, 249));
 		txt_key.setFont(font.s_dream_30);
 
 		frame.add(txt_key);
@@ -145,7 +151,7 @@ public class Substitution implements ActionListener{
 		txt_str.setBounds(500, 90, 500, 50);
 		txt_str.setEditable(false); // 글씨 변경 안됨
 		txt_str.setBorder(null);
-		txt_str.setBackground(Color.WHITE);
+		txt_str.setBackground(new Color(255, 255, 249));
 		txt_str.setFont(font.s_dream_30);
 
 		frame.add(txt_str);
@@ -155,7 +161,7 @@ public class Substitution implements ActionListener{
 		txt_ecryption.setBounds(500, 500, 600, 50);
 		txt_ecryption.setEditable(false); // 글씨 변경 안됨
 		txt_ecryption.setBorder(null);
-		txt_ecryption.setBackground(Color.WHITE);
+		txt_ecryption.setBackground(new Color(255, 255, 249));
 		txt_ecryption.setFont(font.s_dream_25);
 
 		frame.add(txt_ecryption);
@@ -271,6 +277,10 @@ public class Substitution implements ActionListener{
 
 		table2.addMouseListener(new java.awt.event.MouseListener() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				front1 = 1;
+				front2 = 1;
+				count1 = 0;
+				count2 = 0;
 				JTable jt = (JTable) e.getSource();
 				int select_row = jt.getSelectedRow();
 				int select_column = jt.getSelectedColumn();
@@ -279,15 +289,108 @@ public class Substitution implements ActionListener{
 				// 암호문을 선택했을 경우에만 처리
 				if(select_row != 0) {
 					Object value = jt.getValueAt(select_row, select_column);
+					Object str = jt.getValueAt(select_row - 1, select_column);
 					
 					// 선택한 값의 첫번째 글자 가져오기
-					char first = value.toString().charAt(0);
+					char value_first = value.toString().charAt(0);
 					// 선택한 값의 두번째 글자 가져오기
-					char second = value.toString().charAt(1);
+					char value_second = value.toString().charAt(1);
 					
-					System.out.println(first + "   " + second);
+					// 선택한 값의 첫번째 평문 가져오기
+					char str_first = str.toString().charAt(0);
+					// 선택한 값의 두번째 평문 가져오기
+					char str_second = str.toString().charAt(1);
 					
+					//System.out.println(first + "   " + second);
 					
+					for(int i = 0; i < 5; i++) {
+						for(int j = 0; j < 5; j++) {
+							if(alphabetBoard[i][j] == value_first) {
+								//System.out.println(alphabetBoard[i][j]);
+								find_first[2] = i;
+								find_first[3] = j;
+								if(count2 < 1) {
+									front2 = 1;
+									count2 = count2 + 1;
+								}
+								
+							}else if(alphabetBoard[i][j] == value_second) {
+								//System.out.println(alphabetBoard[i][j]);
+								find_second[2] = i;
+								find_second[3] = j;
+								if(count2 < 1) {
+									front2 = 2;
+									count2 = count2 + 1;
+								}
+							}
+							if(alphabetBoard[i][j] == str_first) {
+								//System.out.println(alphabetBoard[i][j]);
+								find_first[0] = i;
+								find_first[1] = j;
+								if(count2 < 1) {
+									front1 = 1;
+									count1 = count1 + 1;
+								}
+								
+							}else if(alphabetBoard[i][j] == str_second) {
+								//System.out.println(alphabetBoard[i][j]);
+								find_second[0] = i;
+								find_second[1] = j;
+								if(count2 < 1) {
+									front1 = 2;
+									count1 = count1 + 1;
+								}
+							}
+						}
+					}
+					
+					// 테이블에 생성 및 모델 초기화
+					JTable copy_table = new JTable(model) {
+						@Override
+						public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+							Component c = super.prepareRenderer(renderer, row, column);
+
+							Color color1 = new Color(238, 255, 246); // green
+							Color color2 = new Color(219, 244, 255); // blue
+
+							// 표 색상 변경
+							if(row == find_first[0] && column == find_first[1] || row == find_second[0] && column == find_second[1] || row == find_first[2] && column == find_first[3] || row == find_second[2] && column == find_second[3]) {
+								if(row == find_first[0] && column == find_first[1] || row == find_second[0] && column == find_second[1]) {
+									c.setBackground(color1);
+								}else
+									c.setBackground(color2);
+							}
+							else
+								c.setBackground(Color.WHITE);
+							
+							return c;
+						}
+					};
+
+					// 테이블 컬럼명 제거
+					copy_table.setTableHeader(null);
+
+					// 테이블 사이즈 조절
+					int height = 80;
+					copy_table.setRowHeight(height);
+
+					// 테이블 값 수정 불가
+					copy_table.setEnabled(false);
+
+					// 값 글씨 수정
+					DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+					dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+					TableColumnModel tcm = copy_table.getColumnModel();
+					for(int i = 0; i < 5; i++)
+						tcm.getColumn(i).setCellRenderer(dtcr);
+
+					// 테이블 올려놓기
+					JScrollPane scrollpane = new JScrollPane();
+					scrollpane.add(copy_table);
+					scrollpane.setViewportView(copy_table);
+					scrollpane.setBounds(50, 150, 400, 403);
+
+					frame.add(scrollpane);
 				}
 			}
 

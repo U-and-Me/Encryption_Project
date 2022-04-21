@@ -116,7 +116,7 @@ public class Encryption_Main {
 		JButton btn_ecryption = new JButton("암호");
 		btn_ecryption.setBounds(870, 307, 100, 50);
 		btn_ecryption.setBorder(new RoundedBorder(30));
-		btn_ecryption.setBackground(Color.WHITE);
+		btn_ecryption.setBackground(new Color(219, 244, 255));
 		btn_ecryption.setFocusable(false);
 		btn_ecryption.setFont(font.s_dream_15);
 
@@ -126,7 +126,7 @@ public class Encryption_Main {
 		JButton btn_decryption = new JButton("복호");
 		btn_decryption.setBounds(870, 392, 100, 50);
 		btn_decryption.setBorder(new RoundedBorder(30));
-		btn_decryption.setBackground(Color.WHITE);
+		btn_decryption.setBackground(new Color(219, 244, 255));
 		btn_decryption.setFocusable(false);
 		btn_decryption.setFont(font.s_dream_15);
 
@@ -134,9 +134,9 @@ public class Encryption_Main {
 
 		// 치환과정 버튼
 		JButton btn_substitution = new JButton("치환 과정 보기");
-		btn_substitution.setBounds(30, 590, 200, 50);
-		btn_substitution.setBorder(new RoundedBorder(30));
-		btn_substitution.setBackground(new Color(212, 235, 255));
+		btn_substitution.setBounds(350, 590, 350, 50);
+		btn_substitution.setBackground(new Color(106, 73, 222));
+		btn_substitution.setForeground(Color.WHITE);
 		btn_substitution.setFocusable(false);
 		btn_substitution.setFont(font.s_dream_20);
 
@@ -144,9 +144,9 @@ public class Encryption_Main {
 
 		// 초기화 버튼
 		JButton btn_reset = new JButton("초기화");
-		btn_reset.setBounds(950, 590, 120, 50);
-		btn_reset.setBorder(new RoundedBorder(30));
-		btn_reset.setBackground(Color.WHITE);
+		btn_reset.setBounds(940, 590, 120, 50);
+		btn_reset.setBackground(new Color(106, 73, 222));
+		btn_reset.setForeground(Color.WHITE);
 		btn_reset.setFocusable(false);
 		btn_reset.setFont(font.s_dream_15);
 
@@ -159,6 +159,10 @@ public class Encryption_Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				input_key_ecryption.setEditable(true);
+				input_text.setEditable(true);
+				
 				input_key_ecryption.setText("");
 				input_text.setText("");
 				output_ecryption.setText("");
@@ -183,6 +187,10 @@ public class Encryption_Main {
 				
 				key = input_key_ecryption.getText().toUpperCase();
 				str = input_text.getText().toUpperCase();
+				output_ecryption.setFocusable(true);
+				
+				input_key_ecryption.setEditable(false);
+				input_text.setEditable(false);
 
 				// 암호화에 쓰일 암호판 세팅
 				setBoard(key);
