@@ -15,11 +15,11 @@ public class Encryption {
 		
 	// 암호키, 평문 입력받아서 암호화 진행하기
 	public Encryption(String key, String str, char[][] alphabetBoard, String blankCheck, boolean oddFlag) {
-		this.key = key;
-		this.str = str;
-		this.blankCheck = blankCheck;
+		Encryption.key = key;
+		Encryption.str = str;
+		Encryption.blankCheck = blankCheck;
 		Encryption.alphabetBoard = alphabetBoard.clone();
-		this.oddFlag = oddFlag;
+		Encryption.oddFlag = oddFlag;
 	}
 
 	public String start() {		

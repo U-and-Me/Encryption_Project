@@ -2,18 +2,12 @@ package m3102;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
-import java.beans.EventHandler;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,9 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 
 public class Substitution implements ActionListener{
 
@@ -99,6 +91,8 @@ public class Substitution implements ActionListener{
 
 		// 테이블에 생성 및 모델 초기화
 		JTable table = new JTable(model) {
+			private static final long serialVersionUID = -3247460932338175705L;
+
 			@Override
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 				Component c =  super.prepareRenderer(renderer, row, column);
@@ -196,7 +190,7 @@ public class Substitution implements ActionListener{
 		int enc_index = 0;
 		str = str.toUpperCase();
 		for(int i = 0; i < data_model[0].length; i++) {
-			_columnNmaes2[i] = Character.toString(i);
+			_columnNmaes2[i] = "1";
 			// 평문 2개씩 자르기
 			try{
 				data_model[0][i] = Character.toString(str.charAt(str_index));
@@ -228,6 +222,7 @@ public class Substitution implements ActionListener{
 		
 		// 테이블에 생성 및 모델 초기화 / 테이블 값 수정 불가 및 선택 가능
 		JTable table2 = new JTable(model_sample) {
+			private static final long serialVersionUID = 6987844225566095745L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -346,6 +341,8 @@ public class Substitution implements ActionListener{
 					
 					// 테이블에 생성 및 모델 초기화
 					JTable copy_table = new JTable(model) {
+						private static final long serialVersionUID = 1L;
+
 						@Override
 						public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 							Component c = super.prepareRenderer(renderer, row, column);
